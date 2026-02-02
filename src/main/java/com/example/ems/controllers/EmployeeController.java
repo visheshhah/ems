@@ -3,6 +3,7 @@ package com.example.ems.controllers;
 import com.example.ems.dtos.EmployeeRequestDto;
 import com.example.ems.dtos.EmployeeResponseDto;
 import com.example.ems.services.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeResponseDto> createEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) {
+    public ResponseEntity<EmployeeResponseDto> createEmployee(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
         return new ResponseEntity<>(employeeService.create(employeeRequestDto), HttpStatus.CREATED);
     }
 
