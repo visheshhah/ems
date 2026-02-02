@@ -3,6 +3,7 @@ package com.example.ems.services;
 import com.example.ems.dtos.EmployeeRequestDto;
 import com.example.ems.dtos.EmployeeResponseDto;
 import com.example.ems.entities.Employee;
+import com.example.ems.exceptions.ResourceNotFoundException;
 import com.example.ems.repositories.EmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,8 @@ public class EmployeeService {
     }
 
     public EmployeeResponseDto findById(int id) {
-        Employee employee = employeeRepository.findById(id).orElse(null);;
+        Employee employee = employeeRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("NO CUSTOMER PRESENT WITH ID = " + id));;
         return modelMapper.map(employee, EmployeeResponseDto.class);
 
     }
